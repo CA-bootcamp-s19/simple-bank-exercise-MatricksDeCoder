@@ -84,7 +84,7 @@ contract SimpleBank {
     /// @param withdrawAmount amount you want to withdraw
     /// @return The balance remaining for the user
     // Emit the appropriate event    
-    function withdraw(uint withdrawAmount) public returns (uint) {
+    function withdraw(uint withdrawAmount) public payable returns (uint) {
         
         require(enrolled[msg.sender] == true);
         require(balances[msg.sender] >= withdrawAmount);

@@ -87,11 +87,16 @@ contract SimpleBank {
     function withdraw(uint withdrawAmount) public payable returns (uint) {
         
         require(enrolled[msg.sender] == true);
-        require(balances[msg.sender] >= withdrawAmount);
-        balances[msg.sender] -= msg.value;
-        msg.sender.transfer(withdrawAmount);
-        emit LogWithdrawal(msg.sender, withdrawAmount, balances[msg.sender]);
-        return balances[msg.sender];
+        
+        if(balances[msg.sender] >= withdrawAmount) {
+            balances[msg.sender] -= withdrawAmount;
+            msg.sender.transfer(withdrawAmount);
+            emit LogWithdrawal(msg.sender, withdrawAmount, balances[msg.sender]);
+            return balances[msg.sender];
+        } 
+        else{
+            revert();
+        }
         
         /* If the sender's balance is at least the amount they want to withdraw,
            Subtract the amount from the sender's balance, and try to send that amount of ether

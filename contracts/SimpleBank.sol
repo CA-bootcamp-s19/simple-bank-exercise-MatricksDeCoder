@@ -98,7 +98,7 @@ contract SimpleBank {
         require(enrolled[msg.sender] ==true);
         require(balances[msg.sender] >= withdrawAmount);
         balances[msg.sender] -= msg.value;
-        event LogWithdrawal(msg.sender, withdrawAmount, balances[msg.sender]);
+        emit LogWithdrawal(msg.sender, withdrawAmount, balances[msg.sender]);
         return balances[msg.sender];
         
         /* If the sender's balance is at least the amount they want to withdraw,
